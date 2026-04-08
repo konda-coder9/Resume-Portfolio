@@ -52,6 +52,8 @@ body {
   --right-end: 0px;
   --top-start: 0px;
   --top-end: 0px;
+  --photo-shift-y: 0px;
+  --photo-opacity: 1;
 
   background-image: linear-gradient(
       90deg,
@@ -79,9 +81,10 @@ body {
   position: fixed;
   right: calc(var(--right-start) + (var(--right-end) - var(--right-start)) * var(--p));
   top: calc(var(--top-start) + (var(--top-end) - var(--top-start)) * var(--p));
-  transform: none;
+  transform: translate3d(0, var(--photo-shift-y), 0);
+  opacity: var(--photo-opacity);
   width: calc(var(--w-start) + (var(--w-end) - var(--w-start)) * var(--p));
-  will-change: transform, width, height, top, right;
+  will-change: transform, width, height, top, right, opacity;
   z-index: 1;
 }
 
@@ -204,6 +207,78 @@ body {
   pointer-events: auto;
   position: relative;
   z-index: 8;
+}
+
+.syntax-mobile-menu-button,
+.syntax-mobile-menu {
+  display: none;
+}
+
+.syntax-mobile-menu-button {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 9px;
+  color: var(--syntax-text);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  min-height: 36px;
+  padding: 9px 12px;
+  transition: border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.syntax-mobile-menu-button:hover,
+.syntax-mobile-menu-button:focus-visible {
+  border-color: rgba(0, 255, 174, 0.62);
+  box-shadow: 0 0 0 1px rgba(0, 255, 174, 0.2);
+  color: var(--syntax-accent);
+}
+
+.syntax-mobile-menu {
+  align-items: flex-start;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0 14px;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: max-height 220ms ease, opacity 220ms ease, transform 220ms ease, padding 220ms ease;
+}
+
+.syntax-mobile-menu.is-open {
+  max-height: 180px;
+  opacity: 1;
+  padding: 12px 14px;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.syntax-mobile-menu-link {
+  color: var(--syntax-text);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.syntax-mobile-menu-link:hover,
+.syntax-mobile-menu-link:focus-visible {
+  color: var(--syntax-accent);
+}
+
+.syntax-mobile-menu-utc {
+  color: var(--syntax-muted);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 .syntax-header-link {
@@ -494,13 +569,16 @@ body {
   max-width: 100%;
   min-height: 42px;
   padding: 8px 11px;
+  transform: translateZ(0);
   width: fit-content;
 }
 
 .syntax-page[data-alive-ready="true"] .syntax-skill.syntax-scroll-live {
-  filter: brightness(calc(0.16 + var(--alive-progress) * 0.84))
-    saturate(calc(0.65 + var(--alive-progress) * 0.35));
-  opacity: calc(0.16 + var(--alive-progress) * 0.84);
+  filter: none;
+  opacity: calc(0.08 + var(--alive-progress) * 0.92);
+  transform: translateY(calc((1 - var(--alive-progress)) * 8px));
+  transition: opacity 28ms linear, transform 28ms linear;
+  will-change: opacity, transform;
 }
 
 .syntax-contact-grid {
@@ -614,10 +692,10 @@ a.syntax-contact-value:hover {
 .syntax-page[data-alive-ready="true"] .syntax-scroll-live .syntax-alive-glyph {
   --glyph-progress: calc(var(--alive-progress) * 0.95);
 
-  filter: blur(calc((1 - var(--glyph-progress)) * 8px));
+  filter: none;
   opacity: calc(0.02 + var(--glyph-progress) * 0.98);
   transform: translateY(calc((1 - var(--glyph-progress)) * 0.16em));
-  transition: opacity 13ms linear, filter 13ms linear, transform 13ms linear;
+  transition: opacity 13ms linear, transform 13ms linear;
 }
 
 @keyframes syntax-fade-in {
@@ -712,13 +790,15 @@ a.syntax-contact-value:hover {
 
 @media (max-width: 809.98px) {
   .syntax-fixed-image {
-    --w-end: 68vw;
-    --h-end: 100vh;
+    --w-end: 100vw;
+    --h-end: 0vh;
     --right-end: 0px;
     --top-end: 0px;
+    --photo-shift-y: calc(var(--p) * -220vh);
+    --photo-opacity: calc(1 - var(--p) * 8);
 
-    min-height: 120px;
-    min-width: 120px;
+    min-height: 0;
+    min-width: 0;
   }
 
   .syntax-header {
@@ -734,6 +814,16 @@ a.syntax-contact-value:hover {
   .syntax-scroll-row,
   .syntax-quote {
     display: none;
+  }
+
+  .syntax-mobile-menu-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .syntax-mobile-menu {
+    display: flex;
   }
 
   .syntax-brand-wrap {

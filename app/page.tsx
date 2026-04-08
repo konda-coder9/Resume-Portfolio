@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, type CSSProperties, useEffect, useRef, useSyncExternalStore } from "react";
+import { Fragment, type CSSProperties, useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 type ExperienceEntry = {
   role: string;
@@ -184,6 +184,7 @@ function ResumeSection({ id, label, children }: ResumeSectionProps) {
 
 export default function Page() {
   const pageRef = useRef<HTMLElement | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMounted = useIsMounted();
 
   useEffect(() => {
@@ -200,7 +201,8 @@ export default function Page() {
 
     const updateScrollProgress = () => {
       ticking = false;
-      const travelDistance = window.innerHeight * 1.6;
+      const isMobileViewport = window.matchMedia("(max-width: 809.98px)").matches;
+      const travelDistance = window.innerHeight * (isMobileViewport ? 0.42 : 1.6);
       const progress = Math.min(1, Math.max(0, window.scrollY / travelDistance));
       page.style.setProperty("--photo-progress", progress.toFixed(4));
     };
@@ -221,6 +223,25 @@ export default function Page() {
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+    };
+  }, [isMounted]);
+
+  useEffect(() => {
+    if (!isMounted) {
+      return;
+    }
+
+    const closeOnDesktop = () => {
+      if (window.matchMedia("(min-width: 810px)").matches) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    closeOnDesktop();
+    window.addEventListener("resize", closeOnDesktop);
+
+    return () => {
+      window.removeEventListener("resize", closeOnDesktop);
     };
   }, [isMounted]);
 
@@ -253,7 +274,10 @@ export default function Page() {
 
     aliveNodes.forEach((node) => node.classList.add("syntax-scroll-live"));
     page.setAttribute("data-alive-ready", "true");
+
+    let ticking = false;
     const updateAliveProgress = () => {
+      ticking = false;
       const viewportHeight = window.innerHeight;
       const revealStart = viewportHeight * 1.2;
       const revealEnd = viewportHeight * 0.65;
@@ -267,14 +291,23 @@ export default function Page() {
       });
     };
 
+    const onScrollOrResize = () => {
+      if (ticking) {
+        return;
+      }
+
+      ticking = true;
+      window.requestAnimationFrame(updateAliveProgress);
+    };
+
     updateAliveProgress();
-    window.addEventListener("scroll", updateAliveProgress, { passive: true });
-    window.addEventListener("resize", updateAliveProgress);
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize);
 
     return () => {
       page.removeAttribute("data-alive-ready");
-      window.removeEventListener("scroll", updateAliveProgress);
-      window.removeEventListener("resize", updateAliveProgress);
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
     };
   }, [isMounted]);
 
@@ -312,6 +345,37 @@ export default function Page() {
             </a>
             <span className="syntax-utc">(UTC-5)</span>
           </div>
+
+          <button
+            type="button"
+            className="syntax-mobile-menu-button"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-header-menu"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+          >
+            Menu
+          </button>
+        </div>
+
+        <div
+          id="mobile-header-menu"
+          className={`syntax-mobile-menu${isMobileMenuOpen ? " is-open" : ""}`}
+        >
+          <a
+            href="/api/resume"
+            className="syntax-mobile-menu-link syntax-download-link"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Download CV
+          </a>
+          <a
+            href="#contact"
+            className="syntax-mobile-menu-link"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Contact Me
+          </a>
+          <span className="syntax-mobile-menu-utc">(UTC-5)</span>
         </div>
 
         <div className="syntax-scroll-row">
@@ -393,7 +457,7 @@ export default function Page() {
           <div className="syntax-skills-grid">
             {skills.map((skill) => (
               <p key={skill} className="syntax-skill syntax-alive" data-alive aria-label={skill}>
-                <AliveGlyphs text={skill} />
+                {skill}
               </p>
             ))}
           </div>
