@@ -384,7 +384,7 @@ export default function Page() {
             <a href="#contact" className="syntax-header-link">
               Contact Me
             </a>
-            <span className="syntax-utc">(UTC-5)</span>
+            <span className="syntax-utc">(UTC-4)</span>
           </div>
 
           <button
@@ -416,7 +416,7 @@ export default function Page() {
           >
             Contact Me
           </a>
-          <span className="syntax-mobile-menu-utc">(UTC-5)</span>
+          <span className="syntax-mobile-menu-utc">(UTC-4)</span>
         </div>
 
         <div className="syntax-scroll-row">
@@ -589,9 +589,6 @@ export default function Page() {
               </span>
             </h2>
 
-            <p className="syntax-thanks-note">
-              Built with a minimalist resume system inspired by the SyntaxCV visual style.
-            </p>
           </div>
         </section>
       </div>
