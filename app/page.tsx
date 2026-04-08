@@ -196,24 +196,62 @@ export default function Page() {
     if (!page) {
       return;
     }
+    const aboutSection = page.querySelector<HTMLElement>("#about");
 
-    let ticking = false;
+    let frameId: number | null = null;
+    let targetProgress = 0;
+    let renderedProgress = 0;
+    let initialized = false;
 
-    const updateScrollProgress = () => {
-      ticking = false;
-      const isMobileViewport = window.matchMedia("(max-width: 809.98px)").matches;
-      const travelDistance = window.innerHeight * (isMobileViewport ? 0.42 : 1.6);
-      const progress = Math.min(1, Math.max(0, window.scrollY / travelDistance));
+    const setPhotoProgress = (progress: number) => {
       page.style.setProperty("--photo-progress", progress.toFixed(4));
     };
 
-    const onScroll = () => {
-      if (ticking) {
+    const animatePhotoProgress = () => {
+      const delta = targetProgress - renderedProgress;
+      if (Math.abs(delta) < 0.0007) {
+        renderedProgress = targetProgress;
+        setPhotoProgress(renderedProgress);
+        frameId = null;
         return;
       }
 
-      ticking = true;
-      window.requestAnimationFrame(updateScrollProgress);
+      renderedProgress += delta * 0.16;
+      setPhotoProgress(renderedProgress);
+      frameId = window.requestAnimationFrame(animatePhotoProgress);
+    };
+
+    const updateScrollProgress = () => {
+      const isMobileViewport = window.matchMedia("(max-width: 809.98px)").matches;
+      const slowdownFactor = 1.7; // ~70% slower photo motion than before.
+      const desktopTravelDistance = window.innerHeight * 1.6 * slowdownFactor;
+
+      if (isMobileViewport) {
+        const aboutTop = aboutSection
+          ? aboutSection.getBoundingClientRect().top + window.scrollY
+          : window.innerHeight;
+        const startOffset = Math.max(0, aboutTop - window.innerHeight);
+        const mobileTravelDistance = window.innerHeight * 1.65 * slowdownFactor;
+        const scrolledAfterStart = Math.max(0, window.scrollY - startOffset);
+        targetProgress = Math.min(1, Math.max(0, scrolledAfterStart / mobileTravelDistance));
+      } else {
+        targetProgress = Math.min(1, Math.max(0, window.scrollY / desktopTravelDistance));
+      }
+
+      if (!initialized) {
+        initialized = true;
+        renderedProgress = targetProgress;
+        setPhotoProgress(renderedProgress);
+        return;
+      }
+
+      if (frameId === null) {
+        frameId = window.requestAnimationFrame(animatePhotoProgress);
+      }
+    };
+
+    const onScroll = () => {
+      updateScrollProgress();
     };
 
     updateScrollProgress();
@@ -221,6 +259,9 @@ export default function Page() {
     window.addEventListener("resize", onScroll);
 
     return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
@@ -536,15 +577,15 @@ export default function Page() {
           <div className="syntax-thanks-content">
             <h2 className="syntax-thanks-title" aria-label="Thanks for being here">
               <span className="syntax-alive syntax-alive-line" data-alive aria-label="Thanks">
-                <AliveGlyphs text="Thanks" />
+                <AliveGlyphs text="Thanks" mode="word" />
               </span>
               <br />
               <span className="syntax-alive syntax-alive-line" data-alive aria-label="for being">
-                <AliveGlyphs text="for being" />
+                <AliveGlyphs text="for being" mode="word" />
               </span>
               <br />
               <span className="syntax-alive syntax-alive-line" data-alive aria-label="here">
-                <AliveGlyphs text="here" />
+                <AliveGlyphs text="here" mode="word" />
               </span>
             </h2>
 

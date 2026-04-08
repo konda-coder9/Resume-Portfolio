@@ -794,8 +794,8 @@ a.syntax-contact-value:hover {
     --h-end: 0vh;
     --right-end: 0px;
     --top-end: 0px;
-    --photo-shift-y: calc(var(--p) * -220vh);
-    --photo-opacity: calc(1 - var(--p) * 8);
+    --photo-shift-y: calc(var(--p) * -130vh);
+    --photo-opacity: clamp(0, calc(1 - var(--p) * 1.25), 1);
 
     min-height: 0;
     min-width: 0;
