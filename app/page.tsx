@@ -17,12 +17,6 @@ type EducationEntry = {
   description: string;
 };
 
-type DetailEntry = {
-  title: string;
-  subtitle: string;
-  description: string;
-};
-
 const experiences: ExperienceEntry[] = [
   {
     role: "Full Stack Developer",
@@ -30,97 +24,93 @@ const experiences: ExperienceEntry[] = [
     location: "Downingtown, PA",
     period: "Feb 2025 - Present",
     bullets: [
-      "Re-architected a legacy browser-based JavaScript Stream Deck SDK to a Node.js architecture and improved reliability by 35%.",
-      "Implemented a GitHub Actions CI/CD pipeline for multi-OS Stream Deck plugin packaging and Cloudflare-backed S3 deployment, reducing manual effort by 60%.",
-      "Engineered a real-time voice tracking system for PTZ cameras using TCP, UDP, and multicast audio inputs with zone-based camera alignment.",
-      "Integrated video switcher automation through IP and WebSocket protocols for automated source switching based on active speaker zones.",
-      "Migrated critical REST API logic from a React frontend into a centralized backend server, reducing client complexity by 40%.",
-      "Designed end-to-end bearer token authentication, including token generation, storage, and validation across protected APIs.",
-      "Developed proxy routing architecture for browser-to-internal service forwarding to centralize business logic and improve security.",
-      "Integrated go2rtc for WebRTC-based streaming and reduced live stream latency by over 30%.",
+      "Design and deliver PTZ camera applications with Python, FastAPI, React, Node.js, REST APIs, WebSockets, and AWS.",
+      "Developed a RAG chatbot with LangChain, OpenAI embeddings, Amazon OpenSearch Serverless, and AWS Bedrock for grounded answers from enterprise documents.",
+      "Re-architected a legacy browser integration into Python and Node.js services, improving reliability by 35% and simplifying maintenance and testing.",
+      "Built secure FastAPI services with JWT/Bearer authentication and proxy routing, reducing client-side complexity by 40%.",
+      "Engineered real-time TCP, UDP, and multicast workflows for automated camera tracking, device control, and UI actions.",
+      "Implemented GitHub Actions pipelines that build, test, package, and deploy multi-platform releases to Amazon S3, reducing manual release effort by 60%.",
+      "Deployed and monitored services with EC2, Lambda, API Gateway, S3, CloudWatch, and IAM.",
     ],
   },
   {
     role: "Software Developer",
     company: "West Chester University of Pennsylvania",
     location: "West Chester, PA",
-    period: "Mar 2023 - Aug 2024",
+    period: "Mar 2023 - Dec 2024",
     bullets: [
-      "Developed and maintained academic and student-facing web applications used by 1,000+ users.",
-      "Built backend services for course access, reporting, and data retrieval across university workflows.",
-      "Optimized SQL queries and backend pipelines, reducing response times by over 30%.",
-      "Developed responsive UI components with React, HTML5, and CSS3, increasing engagement by about 25%.",
-      "Collaborated with faculty and product teams to deliver 10+ feature enhancements aligned to institutional needs.",
+      "Implemented Spring-based REST APIs and validated request handling, security controls, and JSON responses with Postman.",
+      "Built Angular and AngularJS interfaces that consumed reusable Node.js and Express.js services.",
+      "Integrated third-party REST services with OAuth, HTTPS, and single sign-on requirements.",
+      "Supported the Siebel-to-Microsoft Dynamics CRM migration with data-driven views and interface components.",
+      "Designed SSIS and Dell Boomi processes to migrate and synchronize DB2 data with cloud CRM systems.",
+      "Improved support with Splunk dashboards and alerts while using Maven, Jenkins, Bamboo, Jira, and Confluence.",
     ],
   },
   {
-    role: "Software Developer",
+    role: "Java Developer",
     company: "Tata Consultancy Services",
     location: "Remote",
-    period: "Jun 2021 - Dec 2022",
+    period: "Jun 2020 - Dec 2022",
     bullets: [
-      "Applied ServiceNow architecture principles to optimize ITSM workflows and improve SLA compliance.",
-      "Automated ServiceNow-to-ELK data migration using Python scripts and dashboard integrations.",
-      "Built Python ETL and data processing pipelines with pandas and requests, reducing prep time by over 70%.",
-      "Designed and deployed 24/7 Azure Virtual Machine data processing architecture for analytics workflows.",
-      "Configured cron-based orchestration for Azure-hosted data pipelines and improved processing efficiency by 60%.",
+      "Developed contract-management, usage-tracking, billing, and reporting applications with Java, Spring Boot, Angular, TypeScript, and microservices.",
+      "Built reusable Angular components and managed asynchronous workflows with RxJS and centralized state with NgRx.",
+      "Developed Spring Boot, Spring MVC, Spring Data JPA, and Hibernate microservices.",
+      "Designed bulk REST APIs that reduced turnaround time for high-volume updates by approximately 34%.",
+      "Optimized Hibernate queries and SQL integrations, improving large-volume data retrieval by approximately 29%.",
+      "Implemented Kafka event processing, JWT security, automated tests, Docker packaging, and CI/CD on AWS.",
     ],
   },
   {
-    role: "Web Development Intern",
-    company: "Sravani Rao Label (AadyaCorp)",
+    role: "Web Developer",
+    company: "Sravani Rao Label",
     location: "Remote",
-    period: "May 2020 - May 2021",
+    period: "May 2019 - May 2020",
     bullets: [
-      "Developed and maintained ecommerce features including product listings, cart management, and checkout flows.",
-      "Integrated secure payment gateways and improved transaction reliability.",
-      "Built responsive UI components using HTML5, CSS3, JavaScript, and React.",
-      "Implemented REST API integrations for product, order, and authentication workflows.",
+      "Translated business requirements and content priorities into functional website enhancements.",
+      "Developed responsive pages with HTML5, CSS3, JavaScript, AJAX, jQuery, and JSP, including multimedia integration.",
+      "Managed content updates, monitored traffic and availability, and maintained technical documentation.",
+      "Built Power BI dashboards with Power Query, DAX, KPI cards, charts, filters, and slicers.",
     ],
   },
 ];
 
 const skills = [
-  "Rust",
-  "Java",
   "Python",
+  "Java",
   "JavaScript",
   "TypeScript",
+  "SQL / PL/SQL",
+  "Rust / C++",
+  "FastAPI",
+  "Spring Boot / MVC / Security",
+  "Hibernate / Spring Data JPA",
+  "Angular / AngularJS",
   "React",
   "Node.js",
   "Express.js",
-  "Spring Boot",
   "Axum",
-  "REST APIs",
-  "JWT / Bearer Auth",
-  "WebRTC",
-  "WebSockets",
-  "TCP / UDP / Multicast",
-  "MySQL",
-  "PostgreSQL",
-  "MongoDB",
-  "ELK Stack",
-  "Azure",
-  "GitHub Actions",
-  "Linux",
-  "Shell Scripting",
-  "System Design",
+  "REST / SOAP / OpenAPI",
+  "OAuth 2.0 / JWT",
+  "WebSockets / TCP / UDP",
+  "Kafka / JMS",
+  "AWS / Docker / Terraform",
+  "Jenkins / GitHub Actions",
+  "PostgreSQL / MySQL / SQL Server",
+  "Oracle / DB2 / MongoDB",
+  "DynamoDB / Redis",
+  "PyTest / JUnit / Mockito",
+  "RAG / LangChain",
+  "AWS Bedrock / OpenAI API",
+  "OpenSearch / Vector Search",
 ];
 
 const education: EducationEntry[] = [
   {
     institution: "West Chester University of Pennsylvania",
-    period: "Jan 2023 - Dec 2024",
+    period: "",
     title: "Master of Science in Computer Science",
-    description: "CGPA: 3.97 / 4.0",
-  },
-];
-
-const languages: DetailEntry[] = [
-  {
-    title: "Language Details",
-    subtitle: "Available",
-    description: "Language proficiency details can be shared on request.",
+    description: "Master of Science, Computer Science",
   },
 ];
 
@@ -428,11 +418,11 @@ export default function Page() {
         <div className="syntax-hero-inner">
           <div className="syntax-main-intro">
             <div className="syntax-meta-stack">
-              <p className="syntax-timeline syntax-alive" data-alive aria-label="2020 to 2026">
-                <AliveGlyphs text="2020->2026" />
+              <p className="syntax-timeline syntax-alive" data-alive aria-label="2019 to present">
+                <AliveGlyphs text="2019->NOW" />
               </p>
-              <p className="syntax-years syntax-alive" data-alive aria-label="5 plus years experience">
-                <AliveGlyphs text="5+ yrs exp." />
+              <p className="syntax-years syntax-alive" data-alive aria-label="7 plus years experience">
+                <AliveGlyphs text="7+ yrs exp." />
               </p>
             </div>
 
@@ -457,7 +447,7 @@ export default function Page() {
 
           <blockquote className="syntax-quote syntax-alive" data-alive>
             <AliveGlyphs
-              text={"\"I build reliable backend systems and real-time products with a focus on clarity, scalability, and long-term impact.\""}
+              text={"\"I build scalable enterprise applications, intelligent AI solutions, and cloud-native systems using Java, Python, and modern web technologies.\""}
               mode="word"
             />
           </blockquote>
@@ -467,10 +457,11 @@ export default function Page() {
       <div className="syntax-content" id="content">
         <ResumeSection id="about" label="01. about">
           <p className="syntax-copy">
-            Full Stack Developer with 5+ years of combined academic and professional experience building
-            scalable backend systems, real-time streaming applications, and cloud-integrated solutions.
-            Strong hands-on expertise in Rust, React, Node.js, Python, secure API architecture, proxy
-            design, and production-grade distributed workflows.
+            Full Stack Developer with 7+ years of experience designing, developing, testing, deploying,
+            and supporting scalable enterprise applications with Python, Java, JavaScript, and cloud
+            technologies. Experienced in FastAPI, Spring Boot, Angular, React, REST and SOAP services,
+            microservices, PTZ camera platforms, generative AI, secure integrations, and automated AWS
+            deployment pipelines.
           </p>
         </ResumeSection>
 
@@ -509,7 +500,7 @@ export default function Page() {
             {education.map((entry) => (
               <article key={`${entry.institution}-${entry.period}`} className="syntax-item">
                 <p className="syntax-item-meta">
-                  {entry.institution} - {entry.period}
+                  {entry.institution}{entry.period ? ` - ${entry.period}` : ""}
                 </p>
                 <h3 className="syntax-item-title syntax-alive" data-alive aria-label={entry.title}>
                   <AliveGlyphs text={entry.title} />
@@ -520,21 +511,7 @@ export default function Page() {
           </div>
         </ResumeSection>
 
-        <ResumeSection id="languages" label="05. languages">
-          <div className="syntax-stack syntax-stack-tight">
-            {languages.map((entry) => (
-              <article key={entry.title} className="syntax-item">
-                <h3 className="syntax-item-title syntax-alive" data-alive aria-label={entry.title}>
-                  <AliveGlyphs text={entry.title} />
-                </h3>
-                <p className="syntax-item-meta">{entry.subtitle}</p>
-                <p className="syntax-copy">{entry.description}</p>
-              </article>
-            ))}
-          </div>
-        </ResumeSection>
-
-        <ResumeSection id="contact" label="06. contact">
+        <ResumeSection id="contact" label="05. contact">
           <div className="syntax-contact-grid">
             <article className="syntax-contact-item">
               <p className="syntax-item-meta">Phone</p>
@@ -551,12 +528,12 @@ export default function Page() {
             <article className="syntax-contact-item">
               <p className="syntax-item-meta">Email</p>
               <a
-                href="mailto:kondavenkatasaishowri1@gmail.com"
+                href="mailto:kondas0728@gmail.com"
                 className="syntax-contact-value syntax-alive"
                 data-alive
-                aria-label="kondavenkatasaishowri1@gmail.com"
+                aria-label="kondas0728@gmail.com"
               >
-                kondavenkatasaishowri1@gmail.com
+                kondas0728@gmail.com
               </a>
             </article>
 

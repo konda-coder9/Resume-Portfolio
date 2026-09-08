@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Showri",
+  title: "Showri Konda | Full Stack Developer",
   description:
-    "Portfolio of Showri Konda, Full Stack Developer focused on backend systems, real-time products, and scalable web applications.",
+    "Portfolio of Showri Konda, a Full Stack Developer specializing in Java, Python, Angular, React, generative AI, and AWS cloud applications.",
   icons: {
     icon: [{ url: "/profile.jpg", type: "image/jpeg" }],
     shortcut: ["/profile.jpg"],
